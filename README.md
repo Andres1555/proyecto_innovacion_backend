@@ -6,6 +6,8 @@
 2- Correr el main
 - npm start
 
+3- Correr el frontend del proyecto
+
 ## Tecnologias usadas
 
 - Express.js
