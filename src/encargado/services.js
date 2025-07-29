@@ -30,7 +30,7 @@ export class EncargadoService {
     try {
       console.log('Creando un nuevo encargado con los datos:', data);
 
-      // Validaciones
+      
       if (!data.ci || !data.nombre || !data.apellido || !data.telefono || !data.password || !data.email || !data.id_sede) {
         throw new Error("Todos los campos son obligatorios: ci, nombre, apellido, telefono, password, email");
       }
@@ -46,7 +46,7 @@ export class EncargadoService {
         throw new Error("ci, telefono y sede deben ser números; nombre, apellido, email y password deben ser cadenas.");
       }
 
-      // 🔐 Hashear contraseña
+      
       const hashedPassword = await bcrypt.hash(data.password, 10);
       const encargadoData = { ...data, password: hashedPassword };
 
@@ -63,7 +63,7 @@ export class EncargadoService {
     try {
       console.log(`Actualizando encargado con CI: ${ci}, datos:`, data);
 
-      // Validaciones
+      
       if (!ci || !data.nombre || !data.apellido || !data.telefono || !data.password || !data.email || !data.id_sede) {
         throw new Error("Todos los campos son obligatorios: ci, nombre, apellido, telefono, password, email");
       }
@@ -79,7 +79,7 @@ export class EncargadoService {
         throw new Error("ci, telefono y sede deben ser números; nombre, apellido, email y password deben ser cadenas.");
       }
 
-      // 🔐 Hashear la contraseña antes de guardar
+      
       const hashedPassword = await bcrypt.hash(data.password, 10);
       const updatedData = { ...data, password: hashedPassword };
 

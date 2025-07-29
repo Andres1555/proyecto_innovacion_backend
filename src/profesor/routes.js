@@ -4,7 +4,6 @@ import { getallprofesorcontroller, getprofesorcontroller, postprofesorcontroller
 
 const router = express.Router();
 
-// Define las rutas
 router.get('/', getallprofesorcontroller);
 router.get('/:ci',getprofesorcontroller)         
 router.post('/', postprofesorcontroller);             

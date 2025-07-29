@@ -1,5 +1,3 @@
-// services.js
-
 import { AlumnoTesisRepository } from './repositories.js';
 
 export class AlumnoTesisService {

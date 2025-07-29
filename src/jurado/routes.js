@@ -3,8 +3,6 @@ import { getjuradocontroller, postjuradocontroller, deletejuradocontroller } fro
 
 const router = express.Router();
 
-
-// Define las rutas
 router.get('/:id_tesis', getjuradocontroller);         
 router.post('/', postjuradocontroller);             
 router.delete('/', deletejuradocontroller);

@@ -51,14 +51,14 @@ export const getTesisByName = async (req, res) => {
     console.log(`Buscando término:`, searchTerm);
 
     try {
-        const result = await db.execute(sql, [searchTerm]);  // Usando db.execute
-        const rows = result.rows || result; // si db.execute devuelve { rows: [...] } o simplemente [...]
+        const result = await db.execute(sql, [searchTerm]);  
+        const rows = result.rows || result;
 
         if (rows.length === 0) {
             return res.status(404).json({ message: "Tesis no encontrada" });
         }
 
-        res.json(rows); // Devuelve todo el array de resultados
+        res.json(rows); 
     } catch (err) {
         console.error('Error al obtener tesis por nombre:', err.message);
         return res.status(500).json({ message: "Error en el servidor", error: err.message });
@@ -66,7 +66,7 @@ export const getTesisByName = async (req, res) => {
 };
 
 
-// Subir una nueva tesis
+
 export const uploadTesis = async (req, res) => {
     console.log("Archivo recibido:", req.file);
     console.log("Cuerpo recibido:", req.body);
@@ -76,7 +76,7 @@ export const uploadTesis = async (req, res) => {
     const idTesisInt = parseInt(id_tesis, 10);
     const idEstudianteInt = parseInt(id_estudiante, 10);
 
-    // Validaciones básicas
+    
     if (isNaN(idTesisInt)) {
         return res.status(400).json({ message: "El ID de la tesis debe ser un número entero válido." });
     }
@@ -87,19 +87,19 @@ export const uploadTesis = async (req, res) => {
         return res.status(400).json({ message: "El archivo PDF es obligatorio" });
     }
 
-    // Leer el archivo PDF
+    
     const archivo_pdf = fs.readFileSync(req.file.path);
 
-    // Verificar si ya existe una tesis con ese id_tesis
+    
     const checkSql = "SELECT id FROM Tesis WHERE id = ?";
     const checkResult = await db.execute(checkSql, [idTesisInt]);
 
     if (checkResult.rows.length > 0) {
-        fs.unlinkSync(req.file.path); // Borra archivo temporal
+        fs.unlinkSync(req.file.path); 
         return res.status(400).json({ message: "Ya existe una tesis con ese ID." });
     }
 
-    // Insertar la tesis
+    
     const sqlTesis = `
         INSERT INTO Tesis (id, id_encargado, id_sede, id_tutor, nombre, fecha, estado, archivo_pdf)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -110,7 +110,7 @@ export const uploadTesis = async (req, res) => {
 
         console.log("Tesis añadida con ID:", idTesisInt);
 
-        // Asociar estudiante con tesis en alumno_tesis
+        
         const fakeReq = {
             body: {
                 id_estudiante: idEstudianteInt,
@@ -126,16 +126,16 @@ export const uploadTesis = async (req, res) => {
 
         await postAlumnoTesisController(fakeReq, fakeRes);
 
-        // Eliminar archivo temporal
+        
         fs.unlinkSync(req.file.path);
 
-        // Responder éxito
+        
         return res.json({ message: "Tesis subida correctamente y autor asociado", id_tesis: idTesisInt });
 
     } catch (error) {
         console.error("Error al subir la tesis o asociar el autor:", error);
 
-        // Elimina archivo temporal en caso de error
+        
         if (fs.existsSync(req.file.path)) {
             fs.unlinkSync(req.file.path);
         }
@@ -163,7 +163,7 @@ export const downloadTesis = async (req, res) => {
             return res.status(404).json({ message: "Tesis no encontrada o archivo PDF no disponible" });
         }
 
-        // Convertir ArrayBuffer a Buffer
+        
         const archivoPdfBuffer = Buffer.from(result.rows[0].archivo_pdf);
         console.log("Archivo PDF convertido a Buffer:", archivoPdfBuffer);
 
@@ -176,7 +176,7 @@ export const downloadTesis = async (req, res) => {
         res.setHeader("Content-Disposition", `attachment; filename=tesis_${id}.pdf`);
         console.log("Cabeceras configuradas para la descarga");
 
-        // Enviar el archivo PDF como un Buffer
+        
         res.end(archivoPdfBuffer);
         console.log("Archivo PDF enviado correctamente");
 

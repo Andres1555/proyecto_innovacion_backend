@@ -29,7 +29,7 @@ export class SedeRepository {
   
     static async create({ id, nombre, Direccion, telefono }) {
       try {
-        // Validación simple
+        
         if (!id || !nombre || !Direccion || !telefono) {
           throw new Error('Todos los campos son obligatorios.');
         }
@@ -37,9 +37,9 @@ export class SedeRepository {
         const sql = "INSERT INTO Sede (id, nombre, Direccion, telefono) VALUES (?, ?, ?, ?)";
         const result = await db.execute(sql, [id, nombre, Direccion, telefono]);
         
-        // Verificar qué contiene el resultado
-        console.log('Resultado de la inserción:', result);  // Agregado para ver el resultado exacto
-        return result;  // Retorna el resultado de la inserción
+        
+        console.log('Resultado de la inserción:', result); 
+        return result;  
       } catch (error) {
         console.error('Error en SedeRepository.create:', error.message);
         throw error;
@@ -51,13 +51,13 @@ export class SedeRepository {
         const sql = "DELETE FROM Sede WHERE id = ?";
         const result = await db.execute(sql, [id]);
         
-        // Verificar qué contiene el resultado
-        console.log('Resultado de la eliminación:', result);  // Agregado para ver el resultado exacto
+        
+        console.log('Resultado de la eliminación:', result);  
         
         if (result.affectedRows === 0) {
           throw new Error('No se encontró una sede con ese ID para eliminar.');
         }
-        return result;  // Retorna el resultado de la eliminación
+        return result;  
       } catch (error) {
         console.error('Error en SedeRepository.delete:', error.message);
         throw error;

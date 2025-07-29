@@ -26,7 +26,7 @@ export const postlogincontroller = async (req, res) => {
       expiresIn: '1h',
     });
 
-    console.log('✅ Login exitoso para:', email);
+    console.log(' Login exitoso para:', email);
 
     res.status(200).json({
       message: 'Inicio de sesión exitoso',

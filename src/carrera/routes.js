@@ -3,7 +3,7 @@ import { getcarreracontroller, getcarreracodcontroller, postcarreracontroller, d
 
 const router = express.Router();
 
-// Define las rutas
+
 router.get('/', getcarreracontroller);
 router.get('/:cod',getcarreracodcontroller)         
 router.post('/', postcarreracontroller);             

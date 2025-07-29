@@ -23,18 +23,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage,
-    limits: { fileSize: 64 * 1024 * 1024 }, // 10 MB de tamaño máximo
+    limits: { fileSize: 64 * 1024 * 1024 },
 });
 
-// Definición de rutas
-router.get("/tesis", getTesis); // Obtener todas las tesis
-router.get("/tesis/cadena/:nombre", getTesisByName); // Obtener una tesis que contenga x cadena en su nombre
-router.get("/tesis/:id", getTesisById); // Obtener una tesis por ID
-router.post("/tesis", upload.single("archivo_pdf"), uploadTesis); // Subir una nueva tesis con PDF
-router.get("/tesis/:id/download", downloadTesis); // Descargar un PDF de una tesis
-router.delete("/tesis/:id", deleteTesis); // Eliminar una tesis
+router.get("/tesis", getTesis); 
+router.get("/tesis/cadena/:nombre", getTesisByName); 
+router.get("/tesis/:id", getTesisById); 
+router.post("/tesis", upload.single("archivo_pdf"), uploadTesis); 
+router.get("/tesis/:id/download", downloadTesis); 
+router.delete("/tesis/:id", deleteTesis); 
 router.post("/tesis/digital", upload.single("archivo"), digitalizetesis);
-// Ruta que maneja la carga del archivo
 router.put('/tesis/:id', upload.single('archivo_pdf'), updateTesis);
 
 export default router;

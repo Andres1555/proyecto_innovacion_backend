@@ -3,7 +3,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 const sequelize = new Sequelize('database', 'username', 'password', {
   host: 'localhost',
-  dialect: 'mysql', // Puedes usar el dialecto que prefieras
+  dialect: 'mysql', 
 });
 
 

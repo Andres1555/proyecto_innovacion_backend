@@ -5,7 +5,7 @@ export class EncargadoRepository {
     try {
       const sql = "SELECT * FROM Encargado;";
       const result = await db.execute(sql);
-      return result.rows; // devuelve solo los datos
+      return result.rows; 
     } catch (err) {
       console.error('Error en getAll:', err.message);
       throw err;

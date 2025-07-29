@@ -16,14 +16,14 @@ const LoginService = {
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        console.log('❌ La contraseña no coincide');
+        console.log(' La contraseña no coincide');
         return null;
       }
 
-      console.log('✅ Contraseña válida');
+      console.log(' Contraseña válida');
       return user;
     } catch (error) {
-      console.error('💥 Error en LoginService.findByEmailAndPassword:', error);
+      console.error(' Error en LoginService.findByEmailAndPassword:', error);
       throw error;
     }
   },
